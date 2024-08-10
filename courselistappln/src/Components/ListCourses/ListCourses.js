@@ -1,9 +1,11 @@
 import React,{useState,useEffect} from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const ListCourses = () => {
 
     const [courses,setCourses] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(()=>{
 
@@ -30,7 +32,10 @@ const ListCourses = () => {
                         <span>{item.link_name}</span>
                     </div>
                     <center>
-                        <button className='btn btn-primary'>Enquiry</button>
+                        <button className='btn btn-primary'
+                            onClick={() => {navigate('enquiryForm')}}>
+                                Enquiry
+                        </button>
                     </center>
                 </div>)
             });

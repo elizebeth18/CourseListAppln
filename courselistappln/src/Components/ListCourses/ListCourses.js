@@ -33,7 +33,7 @@ const ListCourses = () => {
                     </div>
                     <center>
                         <button className='btn btn-primary'
-                            onClick={() => {navigate('enquiryForm')}}>
+                            onClick={() => {navigate('enquiryForm',{ replace: true })}}>
                                 Enquiry
                         </button>
                     </center>

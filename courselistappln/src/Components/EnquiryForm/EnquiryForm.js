@@ -1,10 +1,12 @@
 import React,{useState} from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const url = "http://localhost:9112/enquiry";
 
 const EnquiryForm = () => {
 
+    const navigate = useNavigate();
     const [inquiryObj, setInquiryObj] = useState({
         name: "",
         phoneNumber: "",
@@ -39,21 +41,24 @@ const EnquiryForm = () => {
             }
         }).then((res) => {
             console.log(res.status);
+            setInquiryObj({
+                name: "",
+                phoneNumber: "",
+                email: "",
+                enquiryMessage: "",
+                errors: {
+                    name: "",
+                    email: "",
+                    phoneNumber: ""
+                }
+            });
+            navigate("/viewEnquires", { replace: true });
+
         }).catch((err) => {
             console.error(err);
         });
 
-        setInquiryObj({
-            name: "",
-            phoneNumber: "",
-            email: "",
-            enquiryMessage: "",
-            errors: {
-                name: "",
-                email: "",
-                phoneNumber: ""
-            }
-        });
+        
 
     }
 

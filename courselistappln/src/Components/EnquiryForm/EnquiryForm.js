@@ -32,34 +32,40 @@ const EnquiryForm = () => {
         }));
     }
 
-    const submitForm = () => {
+    const submitForm = (event) => {
 
-        axios.post(url,JSON.stringify(inquiryObj),{
-            headers: {
-                'accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((res) => {
-            console.log(res.status);
-            setInquiryObj({
-                name: "",
-                phoneNumber: "",
-                email: "",
-                enquiryMessage: "",
-                errors: {
-                    name: "",
-                    email: "",
-                    phoneNumber: ""
+        event.preventDefault();
+
+        if(inquiryObj.name !=="" && 
+            (inquiryObj.email !== "" || inquiryObj.phoneNumber !== "") && 
+            inquiryObj.enquiryMessage!== "") {
+
+            axios.post(url,JSON.stringify(inquiryObj),{
+                headers: {
+                    'accept': 'application/json',
+                    'Content-Type': 'application/json'
                 }
+            }).then((res) => {
+                console.log(res.status);
+                setInquiryObj({
+                    name: "",
+                    phoneNumber: "",
+                    email: "",
+                    enquiryMessage: "",
+                    errors: {
+                        name: "",
+                        email: "",
+                        phoneNumber: ""
+                    }
+                });
+                navigate("/viewEnquires", { replace: true });
+
+            }).catch((err) => {
+                console.error(err);
             });
-            navigate("/viewEnquires", { replace: true });
-
-        }).catch((err) => {
-            console.error(err);
-        });
-
-        
-
+        }else {
+            return;
+        }
     }
 
     // generic validation in JS
@@ -150,7 +156,7 @@ const EnquiryForm = () => {
                                              placeholder="Leave Your Message"
                                             onChange={handleInquiry} />
                                     </div>
-                                    <button type="button" className="btn btn-success"
+                                    <button type="submit" className="btn btn-success"
                                         onClick={submitForm}>Submit</button>
                                 </form>
                             </div>

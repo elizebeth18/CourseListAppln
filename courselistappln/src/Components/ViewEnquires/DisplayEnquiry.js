@@ -34,7 +34,10 @@ const DisplayEnquiry = (props) => {
             <br />
             <br />
             <br />
-            <button type='button button-primary' onClick={() => {navigate("/")}}>Back</button>
+            <button type="button" className='btn btn-primary' 
+                onClick={() => {navigate("/")}}>
+                    Back
+            </button>
         </div>
     );
 }
